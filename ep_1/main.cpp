@@ -10,6 +10,8 @@ void log_test(int n)
 
 int main()
 {
+	Logger::EnableFileOutput("logs/log1.txt");
+	
 	std::thread threads[10];
 
 	for (int i = 0; i < 10; i++)
@@ -17,6 +19,8 @@ int main()
 
 	for (int i = 0; i < 10; i++)
 		threads[i].join();
+
+	Logger::CloseFileOutput();
 
 	return 0;
 }
