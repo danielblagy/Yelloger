@@ -10,7 +10,7 @@ void log_test(int n)
 
 int main()
 {
-	Logger::EnableFileOutput("logs/log1.txt");
+	Logger::EnableFileOutput();
 	
 	std::thread threads[10];
 
