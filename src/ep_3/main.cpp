@@ -20,7 +20,5 @@ int main()
 	for (int i = 0; i < 10; i++)
 		threads[i].join();
 
-	Logger::CloseFileOutput();
-
 	return 0;
 }

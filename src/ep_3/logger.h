@@ -13,73 +13,86 @@ enum LogPriority
 class Logger
 {
 private:
-	static LogPriority priority;
-	static std::mutex log_mutex;
-	static const char* filepath;
-	static FILE* file;
+	LogPriority priority = InfoPriority;
+	std::mutex log_mutex;
+	const char* filepath = 0;
+	FILE* file = 0;
 
 public:
 	static void SetPriority(LogPriority new_priority)
 	{
-		priority = new_priority;
+		get_instance().priority = new_priority;
 	}
 
 	static void EnableFileOutput()
 	{
-		filepath = "log.txt";
-		enable_file_output();
+		Logger& logger_instance = get_instance();
+		logger_instance.filepath = "log.txt";
+		logger_instance.enable_file_output();
 	}
 
 	static void EnableFileOutput(const char* new_filepath)
 	{
-		filepath = new_filepath;
-		enable_file_output();
-	}
-
-	static void CloseFileOutput()
-	{
-		free_file();
+		Logger& logger_instance = get_instance();
+		logger_instance.filepath = new_filepath;
+		logger_instance.enable_file_output();
 	}
 
 	template<typename... Args>
 	static void Trace(const char* message, Args... args)
 	{
-		log("[Trace]\t", TracePriority, message, args...);
+		get_instance().log("[Trace]\t", TracePriority, message, args...);
 	}
 
 	template<typename... Args>
 	static void Debug(const char* message, Args... args)
 	{
-		log("[Debug]\t", DebugPriority, message, args...);
+		get_instance().log("[Debug]\t", DebugPriority, message, args...);
 	}
 
 	template<typename... Args>
 	static void Info(const char* message, Args... args)
 	{
-		log("[Info]\t", InfoPriority, message, args...);
+		get_instance().log("[Info]\t", InfoPriority, message, args...);
 	}
 
 	template<typename... Args>
 	static void Warn(const char* message, Args... args)
 	{
-		log("[Warn]\t", WarnPriority, message, args...);
+		get_instance().log("[Warn]\t", WarnPriority, message, args...);
 	}
 
 	template<typename... Args>
 	static void Error(const char* message, Args... args)
 	{
-		log("[Error]\t", ErrorPriority, message, args...);
+		get_instance().log("[Error]\t", ErrorPriority, message, args...);
 	}
 
 	template<typename... Args>
 	static void Critical(const char* message, Args... args)
 	{
-		log("[Critical]\t", CriticalPriority, message, args...);
+		get_instance().log("[Critical]\t", CriticalPriority, message, args...);
 	}
 
 private:
+	Logger() {}
+
+	Logger(const Logger&) = delete;
+	Logger& operator= (const Logger&) = delete;
+
+	~Logger()
+	{
+		free_file();
+	}
+
+	static Logger& get_instance()
+	{
+		static Logger logger;
+		return logger;
+	}
+
 	template<typename... Args>
-	static void log(const char* message_priority_str, LogPriority message_priority, const char* message, Args... args)
+	void log(const char* message_priority_str, LogPriority message_priority, const char* message, Args... args)
 	{
 		if (priority <= message_priority)
 		{
@@ -104,7 +117,7 @@ private:
 		}
 	}
 
-	static void enable_file_output()
+	void enable_file_output()
 	{
 		if (file != 0)
 		{
@@ -119,14 +132,9 @@ private:
 		}
 	}
 
-	static void free_file()
+	void free_file()
 	{
 		fclose(file);
 		file = 0;
 	}
 };
-
-LogPriority Logger::priority = InfoPriority;
-std::mutex Logger::log_mutex;
-const char* Logger::filepath = 0;
-FILE* Logger::file = 0;
