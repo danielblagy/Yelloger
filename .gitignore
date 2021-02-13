@@ -1,4 +1,5 @@
 *.vcxproj
 *.filters
 *.user
-*.dll
+*.txt
+test.cpp
