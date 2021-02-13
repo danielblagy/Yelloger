@@ -40,7 +40,8 @@
 
 
 	The default log priority is Ylgr::InfoPriority.
-	You can set preority by calling
+	
+	You can set priority by calling
 		Ylgr::SetPriority(Ylgr::DebugPriority);	// e.g. Ylgr::DebugPriority
 
 	Possible values:
@@ -50,6 +51,9 @@
 		Ylgr::WarnPriority
 		Ylgr::ErrorPriority
 		Ylgr::CriticalPriority
+
+	You can get priority by calling
+		Ylgr::GetPriority();	// will return Ylgr::InfoPriority if Ylgr::SetPriority hasn't been called before
 
 
 	To log:
@@ -81,6 +85,8 @@ private:
 	std::mutex log_mutex;
 	const char* filepath = 0;
 	FILE* file = 0;
+	// for timestamp formatting
+	char buffer[80];
 
 public:
 	// Set desired priority for the logger (messages with lower priority will not be recorded)
@@ -88,6 +94,13 @@ public:
 	static void SetPriority(LogPriority new_priority)
 	{
 		get_instance().priority = new_priority;
+	}
+
+	// Get the current logger priority (messages with lower priority will not be recorded)
+	// The default priority is Ylgr::InfoPriority
+	static LogPriority GetPriority()
+	{
+		return get_instance().priority;
 	}
 
 	// Enable file output
@@ -185,7 +198,6 @@ private:
 		{
 			std::time_t current_time = std::time(0);
 			std::tm* timestamp = std::localtime(&current_time);
-			char buffer[80];
 			strftime(buffer, 80, "%c", timestamp);
 
 			std::scoped_lock lock(log_mutex);
