@@ -67,7 +67,7 @@
 
 #pragma once
 
-#include <stdio.h>
+#include <cstdio>
 #include <mutex>
 #include <ctime>
 
@@ -84,7 +84,7 @@ private:
 	LogPriority priority = InfoPriority;
 	std::mutex log_mutex;
 	const char* filepath = 0;
-	FILE* file = 0;
+	std::FILE* file = 0;
 	// for timestamp formatting
 	char buffer[80];
 	const char* timestamp_format = "%T  %d-%m-%Y";
@@ -218,18 +218,18 @@ private:
 			std::tm* timestamp = std::localtime(&current_time);
 
 			std::scoped_lock lock(log_mutex);
-			strftime(buffer, 80, timestamp_format, timestamp);
-			printf("%s    ", buffer);
-			printf(message_priority_str);
-			printf(message, args...);
-			printf("\n");
+			std::strftime(buffer, 80, timestamp_format, timestamp);
+			std::printf("%s    ", buffer);
+			std::printf(message_priority_str);
+			std::printf(message, args...);
+			std::printf("\n");
 
 			if (file)
 			{
-				fprintf(file, "%s    ", buffer);
-				fprintf(file, message_priority_str);
-				fprintf(file, message, args...);
-				fprintf(file, "\n");
+				std::fprintf(file, "%s    ", buffer);
+				std::fprintf(file, message_priority_str);
+				std::fprintf(file, message, args...);
+				std::fprintf(file, "\n");
 			}
 		}
 	}
@@ -238,14 +238,14 @@ private:
 	{
 		if (file != 0)
 		{
-			fclose(file);
+			std::fclose(file);
 		}
 
-		file = fopen(filepath, "a");
+		file = std::fopen(filepath, "a");
 
 		if (file == 0)
 		{
-			printf("Ylgr: Failed to open file at %s\n", filepath);
+			std::printf("Ylgr: Failed to open file at %s\n", filepath);
 		}
 	}
 
@@ -253,7 +253,7 @@ private:
 	{
 		if (file)
 		{
-			fclose(file);
+			std::fclose(file);
 			file = 0;
 		}
 	}
