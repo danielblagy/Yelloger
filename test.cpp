@@ -53,9 +53,9 @@ int main()
 
 	assert(Ylgr::GetTimestampFormat() == "%T  %d-%m-%Y");
 
-	Ylgr::SetTimestampFormat("%c");
-
-	assert(Ylgr::GetTimestampFormat() == "%c");
+	//Ylgr::SetTimestampFormat("%c");
+	//
+	//assert(Ylgr::GetTimestampFormat() == "%c");
 	
 	Ylgr::Trace("shouldn't be logged");
 	Ylgr::Debug("debug log %s", "DEBUG! :)");
