@@ -148,7 +148,7 @@ public:
 	template<typename... Args>
 	static void Trace(const char* message, Args... args)
 	{
-		get_instance().log("[Trace]\t", TracePriority, message, args...);
+		get_instance().log("[Trace]       ", TracePriority, message, args...);
 	}
 
 	// Log a message (format + optional args, follow printf specification)
@@ -156,7 +156,7 @@ public:
 	template<typename... Args>
 	static void Debug(const char* message, Args... args)
 	{
-		get_instance().log("[Debug]\t", DebugPriority, message, args...);
+		get_instance().log("[Debug]       ", DebugPriority, message, args...);
 	}
 
 	// Log a message (format + optional args, follow printf specification)
@@ -164,7 +164,7 @@ public:
 	template<typename... Args>
 	static void Info(const char* message, Args... args)
 	{
-		get_instance().log("[Info]\t", InfoPriority, message, args...);
+		get_instance().log("[Info]        ", InfoPriority, message, args...);
 	}
 
 	// Log a message (format + optional args, follow printf specification)
@@ -172,7 +172,7 @@ public:
 	template<typename... Args>
 	static void Warn(const char* message, Args... args)
 	{
-		get_instance().log("[Warn]\t", WarnPriority, message, args...);
+		get_instance().log("[Warn]        ", WarnPriority, message, args...);
 	}
 
 	// Log a message (format + optional args, follow printf specification)
@@ -180,7 +180,7 @@ public:
 	template<typename... Args>
 	static void Error(const char* message, Args... args)
 	{
-		get_instance().log("[Error]\t", ErrorPriority, message, args...);
+		get_instance().log("[Error]       ", ErrorPriority, message, args...);
 	}
 
 	// Log a message (format + optional args, follow printf specification)
@@ -188,7 +188,7 @@ public:
 	template<typename... Args>
 	static void Critical(const char* message, Args... args)
 	{
-		get_instance().log("[Critical]\t", CriticalPriority, message, args...);
+		get_instance().log("[Critical]    ", CriticalPriority, message, args...);
 	}
 
 private:
