@@ -87,6 +87,7 @@ private:
 	FILE* file = 0;
 	// for timestamp formatting
 	char buffer[80];
+	const char* timestamp_format = "%T  %d-%m-%Y";
 
 public:
 	// Set desired priority for the logger (messages with lower priority will not be recorded)
@@ -123,6 +124,23 @@ public:
 		Ylgr& logger_instance = get_instance();
 		logger_instance.filepath = new_filepath;
 		logger_instance.enable_file_output();
+	}
+
+	// Set a log timestamp format
+	// Format follows <ctime> strftime format specification
+	// Default format is "%T  %d-%m-%Y" (e.g. 13:20:25  14-02-2021)
+	// 4 spaces are added automatically to the end of timestamp each time the message is logged
+	static void SetTimestampFormat(const char* new_timestamp_format)
+	{
+		get_instance().timestamp_format = new_timestamp_format;
+	}
+
+	// Get the current log timestamp format
+	// Format follows <ctime> strftime format specification
+	// Default format is "%T  %d-%m-%Y" (e.g. 13:20:25  14-02-2021)
+	static const char* GetTimestampFormat()
+	{
+		return get_instance().timestamp_format;
 	}
 
 	// Log a message (format + optional args, follow printf specification)
@@ -198,17 +216,17 @@ private:
 		{
 			std::time_t current_time = std::time(0);
 			std::tm* timestamp = std::localtime(&current_time);
-			strftime(buffer, 80, "%c", timestamp);
 
 			std::scoped_lock lock(log_mutex);
-			printf("%s\t", buffer);
+			strftime(buffer, 80, timestamp_format, timestamp);
+			printf("%s    ", buffer);
 			printf(message_priority_str);
 			printf(message, args...);
 			printf("\n");
 
 			if (file)
 			{
-				fprintf(file, "%s\t", buffer);
+				fprintf(file, "%s    ", buffer);
 				fprintf(file, message_priority_str);
 				fprintf(file, message, args...);
 				fprintf(file, "\n");

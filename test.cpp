@@ -27,6 +27,17 @@ void log_test(int n)
 	}
 }
 
+void test_with_threads()
+{
+	std::thread threads[10];
+
+	for (int i = 0; i < 10; i++)
+		threads[i] = std::thread(log_test, i);
+
+	for (int i = 0; i < 10; i++)
+		threads[i].join();
+}
+
 
 int main()
 {
@@ -40,18 +51,18 @@ int main()
 
 	assert(Ylgr::GetPriority() == Ylgr::DebugPriority);
 
+	assert(Ylgr::GetTimestampFormat() == "%T  %d-%m-%Y");
+
+	Ylgr::SetTimestampFormat("%c");
+
+	assert(Ylgr::GetTimestampFormat() == "%c");
+	
 	Ylgr::Trace("shouldn't be logged");
 	Ylgr::Debug("debug log %s", "DEBUG! :)");
 	Ylgr::Info("log testing");
 	Ylgr::Critical("logger testing");
 
-	std::thread threads[10];
-
-	for (int i = 0; i < 10; i++)
-		threads[i] = std::thread(log_test, i);
-
-	for (int i = 0; i < 10; i++)
-		threads[i].join();
+	//test_with_threads();
 	
 	return 0;
 }
