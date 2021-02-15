@@ -1,6 +1,9 @@
 # Yelloger
 ## A simple thread-safe single-header C++ 17 logger.
 ### Tut
+### Include
+This is a header-only ibrary consisting of one header file. Simply copy the include/yelloger.h file
+(in the root of this repo) and #include it in your project.
 ### Examples
 Console logging (the simplest use case)
 ```cpp
