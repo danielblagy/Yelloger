@@ -45,7 +45,15 @@ int main()
 	
 	Ylgr::Info("Hello World!");
 	
-	Ylgr::EnableFileOutput();
+	assert(Ylgr::GetFilepath() == NULL);
+	assert(Ylgr::IsFileOutputEnabled() == false);
+
+	bool file_output_enabled = Ylgr::EnableFileOutput();
+
+	assert(file_output_enabled);
+
+	assert(Ylgr::GetFilepath() == "log.txt");
+	assert(Ylgr::IsFileOutputEnabled());
 
 	Ylgr::SetPriority(Ylgr::DebugPriority);
 

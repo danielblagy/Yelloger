@@ -113,22 +113,38 @@ public:
 	// Logs will be written to /log.txt
 	// If the file doesn't exist, it will create it automatically
 	// File will be closed when program stops
-	static void EnableFileOutput()
+	// Returns true if a file was successfully opened, false otherwise
+	static bool EnableFileOutput()
 	{
 		Ylgr& logger_instance = get_instance();
 		logger_instance.filepath = "log.txt";
-		logger_instance.enable_file_output();
+		return logger_instance.enable_file_output();
 	}
 
 	// Enable file output
 	// Logs will be written to /filepath, provided the filepath is valid
 	// If the file doesn't exist, it will create it automatically
 	// File will be closed when program stops
-	static void EnableFileOutput(const char* new_filepath)
+	// Returns true if a file was successfully opened, false otherwise
+	static bool EnableFileOutput(const char* new_filepath)
 	{
 		Ylgr& logger_instance = get_instance();
 		logger_instance.filepath = new_filepath;
-		logger_instance.enable_file_output();
+		return logger_instance.enable_file_output();
+	}
+
+	// Returns the current filepath for file logging
+	// if Ylgr::EnableFileOutput was called without specifying a filepath, the filepath will be "log.txt"
+	// if file output was not enabled, the filepath will contain NULL
+	static const char* GetFilepath()
+	{
+		return get_instance().filepath;
+	}
+
+	// Returns true is file output was enabled and file was successfully opened, false if it wasn't
+	static bool IsFileOutputEnabled()
+	{
+		return get_instance().file != 0;
 	}
 
 	// Set a log timestamp format
@@ -239,19 +255,18 @@ private:
 		}
 	}
 
-	void enable_file_output()
+	bool enable_file_output()
 	{
-		if (file != 0)
-		{
-			std::fclose(file);
-		}
+		free_file();
 
 		file = std::fopen(filepath, "a");
 
 		if (file == 0)
 		{
-			std::printf("Ylgr: Failed to open file at %s\n", filepath);
+			return false;
 		}
+
+		return true;
 	}
 
 	void free_file()
