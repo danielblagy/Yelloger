@@ -41,6 +41,9 @@ void test_with_threads()
 
 int main()
 {
+	const char* name = "User";
+	Ylgr::Info("Hello %s", name);
+	
 	assert(Ylgr::GetPriority() == Ylgr::InfoPriority);
 	
 	Ylgr::Info("Hello World!");

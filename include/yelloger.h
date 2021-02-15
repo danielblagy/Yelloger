@@ -57,12 +57,27 @@
 
 
 	To log:
-		Ylgr::Trace(const char* message, Args... args)
-		Ylgr::Debug(const char* message, Args... args)
-		Ylgr::Info(const char* message, Args... args)
-		Ylgr::Warn(const char* message, Args... args)
-		Ylgr::Error(const char* message, Args... args)
-		Ylgr::Critical(const char* message, Args... args)
+		Ylgr::Trace(const char* message, Args... args)		// log a message with trace priority
+		Ylgr::Debug(const char* message, Args... args)		// log a message with debug priority
+		Ylgr::Info(const char* message, Args... args)		// log a message with info priority
+		Ylgr::Warn(const char* message, Args... args)		// log a message with warn priority
+		Ylgr::Error(const char* message, Args... args)		// log a message with error priority
+		Ylgr::Critical(const char* message, Args... args)	// log a message with critical priority
+
+	SIMPLE EXAMPLE
+
+	#include <yelloger.h>
+
+	int main()
+	{
+		const char* name = "User";
+		Ylgr::Info("Hello %s", name);
+	
+		return 0;
+	}
+
+	Output:
+	15:07:31  15-02-2021    [Info]        Hello User
 */
 
 #pragma once
@@ -88,8 +103,10 @@ public:
 private:
 	LogPriority priority = InfoPriority;
 	std::mutex log_mutex;
+	
 	const char* filepath = 0;
 	std::FILE* file = 0;
+	
 	// for timestamp formatting
 	char buffer[80];
 	const char* timestamp_format = "%T  %d-%m-%Y";
