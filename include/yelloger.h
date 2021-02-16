@@ -25,44 +25,44 @@
 /*
 	DOCUMENTATION
 
-	Ylgr doesn't need to be instantiated, just include the header and use it like this
-		Ylgr::Info("Infotmation %d", int_value);
+	Yellog doesn't need to be instantiated, just include the header and use it like this
+		Yellog::Info("Infotmation %d", int_value);
 	, also there is no need to put newline character at the end of the message, it will be done automatically.
 
 
 	To enable file output, call
-		Ylgr::EnableFileOutput("mylogpath/mylog.txt");
+		Yellog::EnableFileOutput("mylogpath/mylog.txt");
 	before using the logger.
 	
 	Optionally, you can provide no path
-		Ylgr::EnableFileOutput();
+		Yellog::EnableFileOutput();
 	then, the logs will be saved in '/log.txt'.
 
 
-	The default log priority is Ylgr::InfoPriority.
+	The default log priority is Yellog::InfoPriority.
 	
 	You can set priority by calling
-		Ylgr::SetPriority(Ylgr::DebugPriority);	// e.g. Ylgr::DebugPriority
+		Yellog::SetPriority(Yellog::DebugPriority);	// e.g. Yellog::DebugPriority
 
 	Possible values:
-		Ylgr::TracePriority
-		Ylgr::DebugPriority
-		Ylgr::InfoPriority
-		Ylgr::WarnPriority
-		Ylgr::ErrorPriority
-		Ylgr::CriticalPriority
+		Yellog::TracePriority
+		Yellog::DebugPriority
+		Yellog::InfoPriority
+		Yellog::WarnPriority
+		Yellog::ErrorPriority
+		Yellog::CriticalPriority
 
 	You can get priority by calling
-		Ylgr::GetPriority();	// will return Ylgr::InfoPriority if Ylgr::SetPriority hasn't been called before
+		Yellog::GetPriority();	// will return Yellog::InfoPriority if Yellog::SetPriority hasn't been called before
 
 
 	To log:
-		Ylgr::Trace(const char* message, Args... args)		// log a message with trace priority
-		Ylgr::Debug(const char* message, Args... args)		// log a message with debug priority
-		Ylgr::Info(const char* message, Args... args)		// log a message with info priority
-		Ylgr::Warn(const char* message, Args... args)		// log a message with warn priority
-		Ylgr::Error(const char* message, Args... args)		// log a message with error priority
-		Ylgr::Critical(const char* message, Args... args)	// log a message with critical priority
+		Yellog::Trace(const char* message, Args... args)		// log a message with trace priority
+		Yellog::Debug(const char* message, Args... args)		// log a message with debug priority
+		Yellog::Info(const char* message, Args... args)		// log a message with info priority
+		Yellog::Warn(const char* message, Args... args)		// log a message with warn priority
+		Yellog::Error(const char* message, Args... args)		// log a message with error priority
+		Yellog::Critical(const char* message, Args... args)	// log a message with critical priority
 
 	SIMPLE EXAMPLE
 
@@ -71,7 +71,7 @@
 	int main()
 	{
 		const char* name = "User";
-		Ylgr::Info("Hello %s", name);
+		Yellog::Info("Hello %s", name);
 	
 		return 0;
 	}
@@ -92,7 +92,7 @@
 #include <ctime>
 
 
-class Ylgr
+class Yellog
 {
 public:
 	enum LogPriority
@@ -113,14 +113,14 @@ private:
 
 public:
 	// Set desired priority for the logger (messages with lower priority will not be recorded)
-	// The default priority is Ylgr::InfoPriority
+	// The default priority is Yellog::InfoPriority
 	static void SetPriority(LogPriority new_priority)
 	{
 		get_instance().priority = new_priority;
 	}
 
 	// Get the current logger priority (messages with lower priority will not be recorded)
-	// The default priority is Ylgr::InfoPriority
+	// The default priority is Yellog::InfoPriority
 	static LogPriority GetPriority()
 	{
 		return get_instance().priority;
@@ -133,7 +133,7 @@ public:
 	// Returns true if a file was successfully opened, false otherwise
 	static bool EnableFileOutput()
 	{
-		Ylgr& logger_instance = get_instance();
+		Yellog& logger_instance = get_instance();
 		logger_instance.filepath = "log.txt";
 		return logger_instance.enable_file_output();
 	}
@@ -145,13 +145,13 @@ public:
 	// Returns true if a file was successfully opened, false otherwise
 	static bool EnableFileOutput(const char* new_filepath)
 	{
-		Ylgr& logger_instance = get_instance();
+		Yellog& logger_instance = get_instance();
 		logger_instance.filepath = new_filepath;
 		return logger_instance.enable_file_output();
 	}
 
 	// Returns the current filepath for file logging
-	// if Ylgr::EnableFileOutput was called without specifying a filepath, the filepath will be "log.txt"
+	// if Yellog::EnableFileOutput was called without specifying a filepath, the filepath will be "log.txt"
 	// if file output was not enabled, the filepath will contain NULL
 	static const char* GetFilepath()
 	{
@@ -182,7 +182,7 @@ public:
 	}
 
 	// Log a message (format + optional args, follow printf specification)
-	// with log priority level Ylgr::TracePriority
+	// with log priority level Yellog::TracePriority
 	template<typename... Args>
 	static void Trace(const char* message, Args... args)
 	{
@@ -190,7 +190,7 @@ public:
 	}
 
 	// Log a message (format + optional args, follow printf specification)
-	// with log priority level Ylgr::DebugPriority
+	// with log priority level Yellog::DebugPriority
 	template<typename... Args>
 	static void Debug(const char* message, Args... args)
 	{
@@ -198,7 +198,7 @@ public:
 	}
 
 	// Log a message (format + optional args, follow printf specification)
-	// with log priority level Ylgr::InfoPriority
+	// with log priority level Yellog::InfoPriority
 	template<typename... Args>
 	static void Info(const char* message, Args... args)
 	{
@@ -206,7 +206,7 @@ public:
 	}
 
 	// Log a message (format + optional args, follow printf specification)
-	// with log priority level Ylgr::WarnPriority
+	// with log priority level Yellog::WarnPriority
 	template<typename... Args>
 	static void Warn(const char* message, Args... args)
 	{
@@ -214,7 +214,7 @@ public:
 	}
 
 	// Log a message (format + optional args, follow printf specification)
-	// with log priority level Ylgr::ErrorPriority
+	// with log priority level Yellog::ErrorPriority
 	template<typename... Args>
 	static void Error(const char* message, Args... args)
 	{
@@ -222,7 +222,7 @@ public:
 	}
 
 	// Log a message (format + optional args, follow printf specification)
-	// with log priority level Ylgr::CriticalPriority
+	// with log priority level Yellog::CriticalPriority
 	template<typename... Args>
 	static void Critical(const char* message, Args... args)
 	{
@@ -230,19 +230,19 @@ public:
 	}
 
 private:
-	Ylgr() {}
+	Yellog() {}
 
-	Ylgr(const Ylgr&) = delete;
-	Ylgr& operator= (const Ylgr&) = delete;
+	Yellog(const Yellog&) = delete;
+	Yellog& operator= (const Yellog&) = delete;
 
-	~Ylgr()
+	~Yellog()
 	{
 		free_file();
 	}
 
-	static Ylgr& get_instance()
+	static Yellog& get_instance()
 	{
-		static Ylgr instance;
+		static Yellog instance;
 		
 		return instance;
 	}

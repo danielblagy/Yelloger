@@ -11,8 +11,8 @@ void log_test(int n)
 {
 	for (int i = 0; i < 100; i++)
 	{
-		Ylgr::Info("%d: %d", n, i);
-		Ylgr::Warn("warning %d: %d", n, i);
+		Yellog::Info("%d: %d", n, i);
+		Yellog::Warn("warning %d: %d", n, i);
 	}
 
 	for (int i = 0; i < 100000; i++)
@@ -22,8 +22,8 @@ void log_test(int n)
 
 	for (int i = 0; i < 100; i++)
 	{
-		Ylgr::Info("%d: %d", n, i);
-		Ylgr::Warn("warning %d: %d", n, i);
+		Yellog::Info("%d: %d", n, i);
+		Yellog::Warn("warning %d: %d", n, i);
 	}
 }
 
@@ -42,36 +42,36 @@ void test_with_threads()
 int main()
 {
 	const char* name = "User";
-	Ylgr::Info("Hello %s", name);
+	Yellog::Info("Hello %s", name);
 	
-	assert(Ylgr::GetPriority() == Ylgr::InfoPriority);
+	assert(Yellog::GetPriority() == Yellog::InfoPriority);
 	
-	Ylgr::Info("Hello World!");
+	Yellog::Info("Hello World!");
 	
-	assert(Ylgr::GetFilepath() == NULL);
-	assert(Ylgr::IsFileOutputEnabled() == false);
+	assert(Yellog::GetFilepath() == NULL);
+	assert(Yellog::IsFileOutputEnabled() == false);
 
-	bool file_output_enabled = Ylgr::EnableFileOutput();
+	bool file_output_enabled = Yellog::EnableFileOutput();
 
 	assert(file_output_enabled);
 
-	assert(Ylgr::GetFilepath() == "log.txt");
-	assert(Ylgr::IsFileOutputEnabled());
+	assert(Yellog::GetFilepath() == "log.txt");
+	assert(Yellog::IsFileOutputEnabled());
 
-	Ylgr::SetPriority(Ylgr::DebugPriority);
+	Yellog::SetPriority(Yellog::DebugPriority);
 
-	assert(Ylgr::GetPriority() == Ylgr::DebugPriority);
+	assert(Yellog::GetPriority() == Yellog::DebugPriority);
 
-	assert(Ylgr::GetTimestampFormat() == "%T  %d-%m-%Y");
+	assert(Yellog::GetTimestampFormat() == "%T  %d-%m-%Y");
 
-	//Ylgr::SetTimestampFormat("%c");
+	//Yellog::SetTimestampFormat("%c");
 	//
-	//assert(Ylgr::GetTimestampFormat() == "%c");
+	//assert(Yellog::GetTimestampFormat() == "%c");
 	
-	Ylgr::Trace("shouldn't be logged");
-	Ylgr::Debug("debug log %s", "DEBUG! :)");
-	Ylgr::Info("log testing");
-	Ylgr::Critical("logger testing");
+	Yellog::Trace("shouldn't be logged");
+	Yellog::Debug("debug log %s", "DEBUG! :)");
+	Yellog::Info("log testing");
+	Yellog::Critical("logger testing");
 
 	//test_with_threads();
 	
