@@ -1,9 +1,9 @@
 # Yelloger
 ## A simple thread-safe single-header C++ 17 logger.
-### Tut
-This logger was initially made for a [Youtube tutorial](https://youtube.com/playlist?list=PL5Lk2LPoiyAKcw7T-_FB_4BNrWkxfwnus)
+### Motivation
+This logger was initially made for a [Youtube tutorial](https://youtube.com/playlist?list=PL5Lk2LPoiyAKcw7T-_FB_4BNrWkxfwnus).
 ### Include
-This is a header-only library consisting of one header file. Simply copy the `include/yelloger.h` file and `#include` it in your project.
+This is a header-only library consisting of one header file. Simply copy the [include/yelloger.h](include/yelloger.h) file and `#include` it in your project.
 ### Examples
 Console logging (the simplest use case)
 ```cpp
@@ -29,27 +29,25 @@ Yellog doesn't need to be instantiated, just include the header and use it like 
 
 
 To enable file output, call
-```c_cpp
+```cpp
 	Yellog::EnableFileOutput("mylogpath/mylog.txt");
 ```
 before using the logger.
 
 Optionally, you can provide no path
-```c_cpp
+```cpp
 	Yellog::EnableFileOutput();
 ```
 then, the logs will be saved in '/log.txt'.
 
 
-The default log priority is `Yellog::InfoPriority`.
-
-You can set priority by calling
-```c_cpp
+The default log priority is `Yellog::InfoPriority`. You can set priority by calling
+```cpp
 	Yellog::SetPriority(Yellog::DebugPriority);	// e.g. Yellog::DebugPriority
 ```
 
 Possible values:
-```c_cpp
+```cpp
 	Yellog::TracePriority
 	Yellog::DebugPriority
 	Yellog::InfoPriority
@@ -59,17 +57,17 @@ Possible values:
 ```
 
 You can get priority by calling
-```c_cpp
+```cpp
 	Yellog::GetPriority();	// will return Yellog::InfoPriority if Yellog::SetPriority hasn't been called before
 ```
 
 
 To log:
-```c_cpp
+```cpp
 	Yellog::Trace(const char* message, Args... args)		// log a message with trace priority
 	Yellog::Debug(const char* message, Args... args)		// log a message with debug priority
-	Yellog::Info(const char* message, Args... args)		// log a message with info priority
-	Yellog::Warn(const char* message, Args... args)		// log a message with warn priority
+	Yellog::Info(const char* message, Args... args)			// log a message with info priority
+	Yellog::Warn(const char* message, Args... args)			// log a message with warn priority
 	Yellog::Error(const char* message, Args... args)		// log a message with error priority
-	Yellog::Critical(const char* message, Args... args)	// log a message with critical priority
+	Yellog::Critical(const char* message, Args... args)		// log a message with critical priority
 ```
