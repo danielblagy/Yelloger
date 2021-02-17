@@ -23,7 +23,7 @@
 */
 
 /*
-	DOCUMENTATION
+	QUICK START
 
 	Yellog doesn't need to be instantiated, just include the header and use it like this
 		Yellog::Info("Infotmation %d", int_value);
@@ -63,6 +63,8 @@
 		Yellog::Warn(const char* message, Args... args)		// log a message with warn priority
 		Yellog::Error(const char* message, Args... args)		// log a message with error priority
 		Yellog::Critical(const char* message, Args... args)	// log a message with critical priority
+
+		As args you can provide primitives and C-strings. Formatting follows printf format.
 
 	SIMPLE EXAMPLE
 

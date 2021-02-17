@@ -20,7 +20,7 @@ int main()
 Output:
 > 15:07:31  15-02-2021    [Info]     Hello User
 
-###  Documentation
+###  Quick Start
 Yellog doesn't need to be instantiated, just include the header and use it like this
 ```cpp
 	Yellog::Info("Infotmation %d", int_value);
@@ -71,3 +71,5 @@ To log:
 	Yellog::Error(const char* message, Args... args)		// log a message with error priority
 	Yellog::Critical(const char* message, Args... args)		// log a message with critical priority
 ```
+
+As args you can provide primitives and C-strings. Formatting follows printf format.
