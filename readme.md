@@ -29,6 +29,14 @@ Yellog doesn't need to be instantiated, just include the header and use it like 
 , also there is no need to put newline character at the end of the message, it will be done automatically.
 
 
+## Reference Contents
+* [Log Priorities](#log-priorities)
+* [Logging](#logging)
+* [File Output](#file-output)
+* [Timestamps](#timestamps)
+
+## Reference
+
 ### Log Priorities
 The default log priority is `Yellog::InfoPriority`. You can set priority by calling
 ```cpp
