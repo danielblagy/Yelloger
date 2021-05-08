@@ -1,4 +1,6 @@
 # Yelloger
+* [General Info](#motivation)
+* [Reference](#reference-contents)
 ## A simple thread-safe single-header C++ 17 logger.
 ### Motivation
 This logger was initially made for a [Youtube tutorial](https://youtube.com/playlist?list=PL5Lk2LPoiyAKcw7T-_FB_4BNrWkxfwnus).
