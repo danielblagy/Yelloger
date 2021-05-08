@@ -70,7 +70,7 @@ To log:
 	Yellog::Critical(const char* message, Args... args)		// log a message with critical priority
 ```
 
-As args you can provide primitives and C-strings. Formatting follows printf format.
+As args you can provide primitives and C-strings. Formatting follows [printf format](https://www.cplusplus.com/reference/cstdio/printf/).
 
 
 ### File Output
@@ -99,7 +99,7 @@ To check if file output was enabled and file was successfully opened, call
 
 
 ### Timestamps
-Format follows <ctime> strftime format specification.  
+Format follows ctime [strftime format specification](https://www.cplusplus.com/reference/ctime/strftime/).  
 Default format is "%T  %d-%m-%Y" (e.g. 13:20:25  14-02-2021).  
 4 spaces are added automatically to the end of timestamp each time the message is logged.  
   
